@@ -1,6 +1,6 @@
 
-var multer = require('multer');
-var fileUpload = require('../middlewares/upload_middleware');
+const multer = require('multer');
+const fileUpload = require('../middlewares/upload_middleware');
 
 
 module.exports = {
@@ -15,6 +15,7 @@ module.exports = {
       } else if (err) {
         res.send(err);
       } else {
+           
         res.redirect('/')
       }
     });

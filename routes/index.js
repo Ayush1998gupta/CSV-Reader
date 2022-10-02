@@ -7,6 +7,8 @@ const file = require('../controllers/fileController');
 
 router.get('/', home.getHome);
 
-router.post('/fileUpload',file.uploadFile);
+router.post('/fileUpload', file.uploadFile);
+
+router.get('/openFile/:fileId', home.getFile);
 
 module.exports = router;
