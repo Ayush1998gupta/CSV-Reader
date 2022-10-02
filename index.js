@@ -11,13 +11,11 @@ const app = express();
 // error controller
 const errorController = require('./controllers/error');
 
-
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // design file
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 // static file
 app.set('view engine', 'ejs');
@@ -27,12 +25,9 @@ app.set('views', 'views');
 const index = require('./routes/index');
 
 
-// body parsering
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 // accessing uploaded file from uploads
 app.use('/uploads', express.static(__dirname + '/uploads'));
-
 
 // use Routes
 app.use(index);
