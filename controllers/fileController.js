@@ -1,7 +1,7 @@
-
 const multer = require('multer');
 const fileUpload = require('../middlewares/upload_middleware');
-
+const File = require('../models/file');
+const csv = require('csvtojson');
 
 module.exports = {
   uploadFile: function (req, res) {
@@ -9,14 +9,30 @@ module.exports = {
       storage: fileUpload.files.storage(),
       allowedFile: fileUpload.files.allowedFile,
     }).single('file');
+
     upload(req, res, function (err) {
       if (err instanceof multer.MulterError) {
         res.send(err);
       } else if (err) {
         res.send(err);
       } else {
-           
-        res.redirect('/')
+        const fileName = req.file.filename;
+        csv()
+          .fromFile(`public/files/${fileName}`)
+          .then(function (jsonArrayObj) {
+            const file = new File({
+              fileName: fileName,
+              data: jsonArrayObj,
+            });
+            file
+              .save()
+              .then((files) => {
+                res.redirect('/');
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
       }
     });
   },

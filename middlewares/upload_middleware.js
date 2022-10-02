@@ -15,14 +15,11 @@ module.exports.files = {
   },
 
   allowedFile: function (req, file, cb) {
-    if (
-      !file.originalname.match(
-        /\.(csv)$/
-      )
-    ) {
+    if (!file.originalname.match(/\.(csv)$/)) {
       req.fileValidationError = 'Only csv files are allowed!';
       return cb(new Error('Only csv files are allowed!'), false);
     }
     cb(null, true);
+    return file;
   },
 };
