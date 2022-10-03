@@ -1,6 +1,3 @@
-# Node + Express + EJS + Tailwind CSS Starter Template
-
-The intention of this project is how to create app using Node.js + Express.js + EJS + Tailwind css
 
 ## Dependencies
 

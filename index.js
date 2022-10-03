@@ -1,5 +1,5 @@
 const path = require('path');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 // using express as a server
 const express = require('express');
 const mongoose = require('mongoose');
@@ -32,7 +32,10 @@ app.use(errorController.get404);
 
 //database
 mongoose
-  .connect('mongodb://localhost:27017/csv')
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.gexk8id.mongodb.net/CSV?retryWrites=true&w=majority`
+    
+  )
   .then(() => console.log('database connected successfully'))
   .catch((err) => console.log('error connecting to mongodb', err));
 
