@@ -73,9 +73,13 @@ exports.getFile = (req, res, next) => {
   const fileId = req.params.fileId;
   File.findById(fileId)
     .then((file) => {
-      console.log(file)
+      console.log(file.data)
       res.render('table', {
         pageTitle: 'Project Detail',
+        file:file,
+        fileData: file.data,
+        length: Object.keys(file.data[0]).length,
+        tableHeading: Object.keys(file.data[0]),
       });
     })
     .catch((err) => console.log(err));

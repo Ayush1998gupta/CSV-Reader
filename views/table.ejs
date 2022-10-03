@@ -1,5 +1,58 @@
 <%-include("./partials/header")-%>
-<body>
-     <h1>table</h1>
+
+<body class="bg-teal-600">
+
+  <header class="mb-6 px-16 py-16 text-center">
+    <h1 class="text-7xl font-medium text-emerald-100  mb-3">CSV Reader</h1>
+    <p class="text-emerald-50">Read CSV file and display its content in tabular form</p>
+  </header>
+
+  <form  action="/openFile/<%=file.id%>" method="post" class="w-1/2 m-auto mb-11"   >   
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+    <div class="relative">
+        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        <input type="search" id="default-search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
+        <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+    </div>
+</form>
+
+  <div class="w-11/12 m-auto">
+    <div class="table w-full p-2">
+      <table class="w-full border">
+        <thead>
+          <tr class="bg-gray-50 border-b">
+            <% if(fileData.length>0){ %>
+            <% for (let heading of tableHeading) { %>
+            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+              <div class="flex items-center justify-center">
+                <%= heading %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                </svg>
+              </div>
+            </th>
+            <% } %>
+            <% } else{ %>
+            <h1>nothing</h1>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let files of fileData){ %>
+          <tr class="bg-gray-100 text-center border-b text-sm text-gray-600">
+            <% for (let file in files) { %>
+            <td class="p-2 border-r">
+              <%= files[file] %>
+            </td>
+            <% } %>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
+
 </html>
