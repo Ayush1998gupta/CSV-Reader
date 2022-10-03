@@ -11,6 +11,8 @@ router.post('/fileUpload', file.uploadFile);
 
 router.get('/openFile/:fileId', home.getFile);
 
-router.post('/openFile/:fileId', home.getFile);
+router.get('/deleteFile/:fileId', home.deleteFile);
+
+router.post('/openFile/:fileId', home.postFile);
 
 module.exports = router;

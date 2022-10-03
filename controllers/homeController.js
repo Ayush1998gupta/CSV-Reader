@@ -56,31 +56,59 @@ exports.getHome = (req, res, next) => {
   //     console.log(err);
   //   });
 
-   File.find()
-     .then((files) => {
-       res.render('index', {
-         files: files,
-         pageTitle: 'Home',
-       });
-     })
-     .catch((err) => {
-       console.log(err);
-     });
+  File.find()
+    .then((files) => {
+      res.render('index', {
+        files: files,
+        pageTitle: 'Home',
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
-
 
 exports.getFile = (req, res, next) => {
   const fileId = req.params.fileId;
   File.findById(fileId)
     .then((file) => {
-      console.log(file.data)
       res.render('table', {
-        pageTitle: 'Project Detail',
-        file:file,
+        pageTitle: 'Tabluar',
+        file: file,
         fileData: file.data,
         length: Object.keys(file.data[0]).length,
         tableHeading: Object.keys(file.data[0]),
       });
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.postFile = (req, res, next) => {
+  const fileId = req.params.fileId;
+  const search = req.body.search;
+  File.findById(fileId)
+    .then((file) => {
+      const key = Object.keys(file.data[0]);
+      const appendedData = file.data.filter((res, index, arr) => {
+        arr.push('new');
+        return res.Number == search || res.Footnote == search;
+      });
+      res.render('table', {
+        pageTitle: 'Tabluar',
+        file: file,
+        fileData: appendedData,
+        length: Object.keys(file.data[0]).length,
+        tableHeading: key,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.deleteFile = (req, res, next) => {
+  const fileId = req.body.fileId;
+  File.deleteOne(fileId)
+    .then(() => {
+      res.redirect('/');
     })
     .catch((err) => console.log(err));
 };
