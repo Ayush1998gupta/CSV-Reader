@@ -2,7 +2,7 @@ const multer = require('multer');
 const fileUpload = require('../middlewares/upload_middleware');
 const File = require('../models/file');
 const csv = require('csvtojson');
-const path = require('path');
+
 
 module.exports = {
   uploadFile: function (req, res) {
@@ -19,7 +19,7 @@ module.exports = {
       } else {
         const fileName = req.file.filename;
         csv()
-          .fromFile(path.join(__dirname, '../','public','files',`${fileName}`))
+          .fromFile(`public/files/${fileName}`)
           .then(function (jsonArrayObj) {
             const file = new File({
               fileName: fileName,
