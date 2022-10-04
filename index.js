@@ -33,7 +33,7 @@ app.use(errorController.get404);
 //database
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.gexk8id.mongodb.net/CSV?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.gexk8id.mongodb.net/csv?retryWrites=true&w=majority`
     
   )
   .then(() => console.log('database connected successfully'))

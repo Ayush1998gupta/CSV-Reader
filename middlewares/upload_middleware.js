@@ -1,10 +1,11 @@
 var multer = require('multer');
+const path = require('path');
 
 module.exports.files = {
   storage: function () {
     var storage = multer.diskStorage({
       destination: function (req, file, cb) {
-        cb(null, 'public/files/');
+        cb(null, path.join(__dirname, '../', 'public', 'files'));
       },
       filename: function (req, file, cb) {
         cb(null, file.originalname);
